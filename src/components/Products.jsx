@@ -1,21 +1,34 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState , useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { BACKEND_URL } from '../global';
 
 export default function Products() {
 
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
+ // const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
 
+
+    const [products, setProducts] = useState([]);
+    useEffect(()=>{
+      axios
+      .get(`${BACKEND_URL}/products`)
+      .then((result)=>{
+        setProducts(result.data.Product)
+      })
+    },[])
 
 
   return (
     <div className="col-sm">
-        products
-        <button className='btn btn-primary'>asdsada</button>
-      <div data-theme="light">
-      This div will always use light theme
-      <span data-theme="retro">This span will always use retro theme!</span>
+      <div className='product-div'>
+        {products.map((p,index)=>{
+          return(
+            <div className='product' key={p.id}>
+              <p>{p.id}{p.name}</p>
+            </div>
+          )
+
+        })}
       </div>
     </div>
   );

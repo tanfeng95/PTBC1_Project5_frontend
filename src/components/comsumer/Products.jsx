@@ -15,14 +15,22 @@ export default function Products() {
     },[])
   return (
     <div className="col-sm">
-      <div className='product-div'>
+      <div className='product-div flex flex-wrap'>
         {products.map((p,index)=>{
           return(
-            <div className='product' key={p.id}>
-              <p>{p.id}{p.name}</p>
+            <div class="card w-96 bg-base-100 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img src={`/images/${p.image}`} alt={p.image} class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{p.name}</h2>
+                <p>{p.adjective}</p>
+                <div class="card-actions">
+                  <button class="btn btn-primary">Buy Now</button>
+                </div>
+              </div>
             </div>
           )
-
         })}
       </div>
     </div>

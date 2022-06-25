@@ -5,9 +5,6 @@ import { BACKEND_URL } from '../global';
 
 export default function Products() {
 
- // const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
-
-
     const [products, setProducts] = useState([]);
     useEffect(()=>{
       axios
@@ -16,8 +13,6 @@ export default function Products() {
         setProducts(result.data.Product)
       })
     },[])
-
-
   return (
     <div className="col-sm">
       <div className='product-div'>

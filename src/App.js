@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import React, { useState , useEffect, useContext } from 'react';
 import Products from './components/comsumer/Products';
+import Product from './components/comsumer/product';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/' element={<Products/>}></Route> 
+          <Route path='/product/:id' element={<Product/>}></Route> 
         </Routes>
       </div>
 

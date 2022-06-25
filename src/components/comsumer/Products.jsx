@@ -26,7 +26,9 @@ export default function Products() {
                 <h2 class="card-title">{p.name}</h2>
                 <p>{p.adjective}</p>
                 <div class="card-actions">
-                  <button class="btn btn-primary">Buy Now</button>
+                  <Link to ={`/product/${p.id}`}>
+                    <button class="btn btn-primary">Buy Now</button>
+                  </Link>
                 </div>
               </div>
             </div>

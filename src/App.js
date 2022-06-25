@@ -8,7 +8,7 @@ import {
   Link, useNavigate,
 } from 'react-router-dom';
 import React, { useState , useEffect, useContext } from 'react';
-import Products from './components/Products';
+import Products from './components/comsumer/Products';
 
 
 function App() {

@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import { BACKEND_URL } from '../../global';
 import Zoom from 'react-img-zoom';
+import Navbar from './navbar';
 
 
 
@@ -52,8 +53,8 @@ export default function Product(){
      {product &&(
        <>
  <div className="book-content">
+         <Navbar/>
             <div className="flex book-main m-6">
-              
                 <Zoom
                 img={`/images/${product.image}`}
                 zoomScale={3}

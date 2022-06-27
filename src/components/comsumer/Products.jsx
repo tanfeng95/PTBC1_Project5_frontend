@@ -2,6 +2,7 @@ import React, { useState , useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { BACKEND_URL } from '../../global';
+import Navbar from './navbar';
 
 export default function Products() {
 
@@ -15,6 +16,7 @@ export default function Products() {
     },[])
   return (
     <div className="col-sm">
+      <Navbar/>
       <div className='product-div flex flex-wrap'>
         {products.map((p,index)=>{
           return(

@@ -13,12 +13,13 @@ import Product from './components/comsumer/product';
 import Cart from './components/comsumer/cart';
 import Login from './components/comsumer/login';
 import Signup from './components/comsumer/signup';
+import Checkout from './components/comsumer/checkout';
 
 function App() {
 
   const [checkState, setCheckState] = useState([]);
-    const [quanitylist, setQuantityList] = useState([]);
-    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+  const [quanitylist, setQuantityList] = useState([]);
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
   return (
       <div className="App">
         <Routes>
@@ -26,7 +27,8 @@ function App() {
           <Route path='/product/:id' element={<Product/>}></Route> 
           <Route path="/cart" element={<Cart checkState={checkState} setCheckState={setCheckState} quanitylist={quanitylist} setQuantityList={setQuantityList}/>} />
           <Route path="/login" element={<Login setCookie={setCookie} />} />
-             <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup />} />
+        <Route path="/checkout" element={<Checkout checkState={checkState} quanitylist={quanitylist} />} />
         </Routes>
       </div>
 

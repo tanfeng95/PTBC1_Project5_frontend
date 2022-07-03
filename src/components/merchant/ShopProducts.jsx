@@ -5,7 +5,7 @@ import {
   useParams, Link, Outlet, useNavigate,
 } from 'react-router-dom';
 import { BACKEND_URL } from '../../global';
-import Navbar from '../comsumer/navbar';
+import MerchantNavBar from './MerchantNavBar';
 
 export default function ShopProducts() {
 
@@ -20,7 +20,7 @@ export default function ShopProducts() {
     },[])
   return (
     <div className="col-sm">
-      {/* <Navbar/> */}
+      <MerchantNavBar/>
       <div className='product-div flex flex-wrap'>
         {shopProducts.map((p,index)=>{
           return(

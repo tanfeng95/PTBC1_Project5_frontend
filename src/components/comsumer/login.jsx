@@ -27,7 +27,7 @@ export default function Login({ setCookie }) {
   const handleLogin = () => {
     // console.log(email);
     // console.log(password);
-    const input = { email: email, password };
+    const input = { email, password };
     axios.post(`${BACKEND_URL}/login`, input)
       .then((result) => {
         console.log(result);
@@ -50,7 +50,7 @@ export default function Login({ setCookie }) {
         // setCookie('sessionId', data, { path: '/' });
         // setCookie('sessionId', uniqid(), { path: '/' });
         if (data[0].role === 'merchant') {
-          navigate(`/merchant/${data[0].id}`);
+          navigate(`/merchant/dashboard/${data[0].id}`);
         } else {
           navigate('/');
         }

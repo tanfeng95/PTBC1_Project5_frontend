@@ -37,7 +37,6 @@ export default function Login({ setCookie }) {
           setError(data.error);
           return;
         }
-
         console.log(data[0].id);
         setCookie('userId', data[0].id, { path: '/' });
 
@@ -50,7 +49,11 @@ export default function Login({ setCookie }) {
         setError('');
         // setCookie('sessionId', data, { path: '/' });
         // setCookie('sessionId', uniqid(), { path: '/' });
-        navigate('/');
+        if (data[0].role === 'merchant') {
+          navigate(`/merchant/${data[0].id}`);
+        } else {
+          navigate('/');
+        }
       }).catch((err) => {
         console.log(err);
       });

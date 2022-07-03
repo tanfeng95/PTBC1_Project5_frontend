@@ -15,6 +15,8 @@ import Login from './components/comsumer/login';
 import Signup from './components/comsumer/signup';
 import Checkout from './components/comsumer/checkout';
 
+import ShopProducts from './components/merchant/ShopProducts';
+
 function App() {
 
   const [checkState, setCheckState] = useState([]);
@@ -29,6 +31,8 @@ function App() {
           <Route path="/login" element={<Login setCookie={setCookie} />} />
           <Route path="/signup" element={<Signup />} />
         <Route path="/checkout" element={<Checkout checkState={checkState} quanitylist={quanitylist} />} />
+        
+        <Route path="/merchant/:id" element={<ShopProducts />} />
         </Routes>
       </div>
 

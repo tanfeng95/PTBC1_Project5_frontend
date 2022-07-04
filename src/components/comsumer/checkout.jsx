@@ -3,10 +3,11 @@ import axios from 'axios';
 import { Link, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Navbar from './navbar';
+import { BACKEND_URL } from '../../global';
 
 export default function Checkout({ checkState, quanitylist }) {
-  console.log(checkState);
-  console.log(quanitylist);
+  // console.log(checkState);
+  // console.log(quanitylist);
   const [checkoutList, setCheckoutList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showModal, setShowModal] = React.useState(false);
@@ -18,7 +19,7 @@ export default function Checkout({ checkState, quanitylist }) {
   useEffect(() => {
     const values = [];
     const keys = Object.keys(localStorage);
-    console.log(keys);
+    // console.log(keys);
     for (let i = 0; i < keys.length; i++) {
       if (checkState[i] === true) {
         const item = JSON.parse(localStorage.getItem(keys[i]));
@@ -37,7 +38,7 @@ export default function Checkout({ checkState, quanitylist }) {
   let sum = 0;
   const itemList = checkoutList.map((items, index) => {
     const newTotal = totalPrice + (Number(items.price) * Number(items.quanity));
-    console.log(newTotal);
+    // console.log(newTotal);
     sum += newTotal;
     //setSum(sum + newTotal);
     return (
@@ -67,23 +68,26 @@ export default function Checkout({ checkState, quanitylist }) {
   const handlePlaceOrder = () => {
     setShowModal(true);
     console.log(Cookies.get('userId'));
-    const input = { newOrder: checkoutList, userId: Cookies.get('userId') };
-    axios.post('/createOrder', input)
+    console.log(checkoutList)
+    //   axios.post(`${BACKEND_URL}/login`, input)
+    const input = { newOrder: checkoutList };
+    axios.post(`${BACKEND_URL}/createOrder`, input)
       .then((result) => {
         console.log(result);
-        const { data } = result;
-        console.log(data);
-        if (data === 'OK') {
-          // remove the data from local storage
-          checkoutList.forEach((item, index) => {
-            console.log(item);
-            localStorage.removeItem(`book id${item.id}`);
-          });
-        }
+        // const { data } = result;
+        // console.log(data);
+        // if (data === 'OK') {
+        //   // remove the data from local storage
+        //   checkoutList.forEach((item, index) => {
+        //     console.log(item);
+        //     localStorage.removeItem(`book id${item.id}`);
+        //   });
+        // }
       }).catch((err) => {
         console.log(err);
       });
   };
+
 
   return (
     <div>
@@ -103,7 +107,7 @@ export default function Checkout({ checkState, quanitylist }) {
           {' '}
           {sum}
         </div>
-        <button className="btn btn-primary" type="button" onClick={() =>handlePlaceOrder}>place Order Now</button>
+        <button className="btn btn-primary" type="button" onClick={handlePlaceOrder}>place Order Now</button>
       </div>
 
       {showModal ? (

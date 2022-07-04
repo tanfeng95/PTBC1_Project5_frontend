@@ -17,6 +17,7 @@ import Checkout from './components/comsumer/checkout';
 
 import ShopProducts from './components/merchant/ShopProducts';
 import MerchantDashboard from './components/merchant/MerchantDashboard';
+import AddProduct from './components/merchant/AddProduct';
 
 function App() {
   const [checkState, setCheckState] = useState([]);
@@ -34,6 +35,7 @@ function App() {
 
         <Route path="/merchant/dashboard/:id" element={<MerchantDashboard />} />
         <Route path="/merchant/:id" element={<ShopProducts />} />
+        <Route path="/merchant/product/add" element={<AddProduct />} />
       </Routes>
     </div>
 

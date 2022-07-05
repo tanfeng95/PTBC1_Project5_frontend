@@ -70,19 +70,19 @@ export default function Checkout({ checkState, quanitylist }) {
     console.log(Cookies.get('userId'));
     console.log(checkoutList)
     //   axios.post(`${BACKEND_URL}/login`, input)
-    const input = { newOrder: checkoutList };
+    const input = { newOrder: checkoutList,userId: Cookies.get('userId') };
     axios.post(`${BACKEND_URL}/createOrder`, input)
       .then((result) => {
         console.log(result);
-        // const { data } = result;
-        // console.log(data);
-        // if (data === 'OK') {
-        //   // remove the data from local storage
-        //   checkoutList.forEach((item, index) => {
-        //     console.log(item);
-        //     localStorage.removeItem(`book id${item.id}`);
-        //   });
-        // }
+        const { data } = result;
+        console.log(data);
+        if (data === 'OK') {
+          // remove the data from local storage
+          checkoutList.forEach((item, index) => {
+            console.log(item);
+            localStorage.removeItem(`product id${item.id}`);
+          });
+        }
       }).catch((err) => {
         console.log(err);
       });

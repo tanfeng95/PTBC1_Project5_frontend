@@ -13,7 +13,7 @@ export default function Product(){
   const params = useParams();
   const [product , setProduct]= useState(null)
     const [value, setvalue] = useState(1);
-  const [name, setName] = useLocalStorage(`book id${product?.id}`, 'Bob');
+  const [name, setName] = useLocalStorage(`product id${product?.id}`, 'Bob');
   useEffect(() =>{
     axios.get(`${BACKEND_URL}/product/${params.id}`)
     .then((result)=>{

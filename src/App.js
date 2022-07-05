@@ -14,6 +14,7 @@ import Cart from './components/comsumer/cart';
 import Login from './components/comsumer/login';
 import Signup from './components/comsumer/signup';
 import Checkout from './components/comsumer/checkout';
+import UserOrder from './components/comsumer/userOrder';
 
 import ShopProducts from './components/merchant/ShopProducts';
 import MerchantDashboard from './components/merchant/MerchantDashboard';
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<Login setCookie={setCookie} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/checkout" element={<Checkout checkState={checkState} quanitylist={quanitylist} />} />
+        <Route path="/orders" element={<UserOrder cookies={cookies} />} />
 
         <Route path="/merchant/dashboard/:id" element={<MerchantDashboard />} />
         <Route path="/merchant/:id" element={<ShopProducts />} />

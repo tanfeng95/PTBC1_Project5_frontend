@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 import Navbar from './navbar';
@@ -10,6 +11,11 @@ export default function Cart({
   const [itemlist, setItemList] = useState([]);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
+
+if (Cookies.get('sessionId') === undefined) {
+    navigate('/login');
+  }
+
   useEffect(() => {
     const values = [];
     const keys = Object.keys(localStorage);
@@ -89,7 +95,7 @@ export default function Cart({
     console.log(position);
     const updateCartList = itemlist.map((item, index) => {
       if (position === index) {
-        localStorage.removeItem(`book id${item.id}`);
+        localStorage.removeItem(`product id${item.id}`);
       }
     });
     const values = [];

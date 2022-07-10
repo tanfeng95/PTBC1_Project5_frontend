@@ -20,8 +20,8 @@ export default function Products() {
       <div className='product-div flex flex-wrap'>
         {products.map((p,index)=>{
           return(
-            <div class="card w-96 bg-base-100 shadow-xl">
-              <figure class="px-10 pt-10">
+            <div class="card w-96 bg-base-120 shadow-xl">
+              <figure class="px-20 pt-10">
                 <img src={`/images/${p.image}`} alt={p.image} class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">

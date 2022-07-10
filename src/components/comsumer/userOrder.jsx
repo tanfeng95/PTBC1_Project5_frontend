@@ -36,27 +36,30 @@ const newOrder = orderList.map((x) => {
       <div className="order-div">
         <div>
           <p>
-            order id =
+            Order Id =
             {' '}
             {x.id}
           </p>
           <p>
-            purchase date =
+            Purchase Date =
             {' '}
             {new Date(x.created_at).toLocaleDateString()}
           </p>
           
 
           <div className="flex justify-center items-center ">
-            <p className="order-item">
-              product 
-              {' '}
-              {x.product.name}
+            <p className="d-flex flex-column quanity-style">
+              <p>
+                Product Name
+              </p>
+              <p className='product-name'>
+                {x.product.name}
+              </p>
             </p>
             <div className="image-cart">
               <figure><img src={`/images/${x.product.image}`} width={200} height={200}  alt="Album" /></figure>
             </div>
-            <p className="cart-item-title">{x.product.title}</p>
+            {/* <p className="cart-item-title">{x.product.title}</p> */}
             <p className="order-item">
               $
               {x.product.price}

@@ -3,14 +3,13 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import jsSHA from 'jssha';
 import Navbar from './navbar';
-import { BACKEND_URL } from '../../global';
+import { BACKEND_URL,SALT } from '../../global';
 
 export default function Login({ setCookie }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const SALT = 'SALT';
 
   const getHash = (input) => {
   // create new SHA object

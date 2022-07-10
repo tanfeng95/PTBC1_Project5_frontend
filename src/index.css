@@ -12,7 +12,81 @@ code {
     monospace;
 }
 
+.image-size {
+  width: 200px;
+  height: 200px;
+  padding: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  max-width: 100%;
+}
 
+.image-cart {
+  width: 70px;
+  padding: 0.25rem;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  max-width: 100%;
+}
+
+.book-price {
+  bottom: 0;
+  position: absolute;
+  padding-left: 30px;
+}
+
+.book-content {
+  padding: 20px;
+}
+
+.cart-item {
+  padding: 20px
+}
+
+.cart-item-title {
+  width: 400px;
+  padding: 2vw
+}
+
+.checkout-div {
+  padding: 30px
+}
+
+.cart-order-summary-div {
+  padding: 30px
+}
+
+.quanity-style {
+  text-align: center;
+  padding: 2vw
+}
+
+.order-div {
+  padding: 1vw
+}
+
+.order-item {
+  padding: 2vw
+}
+
+.card-div {
+  padding: 2vw;
+}
+
+.search {
+  width: 50%
+}
+
+.book-list>div {
+  margin: 6px;
+}
+
+.product-name {
+  max-width: 20vw
+
+
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -32,7 +32,7 @@ export default function Navbar() {
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <Link to="/" className="font-title text-primary inline-flex text-lg transition-all duration-200 md:text-3xl ">
-          <span className="lowercase">TailWind</span>
+          <span className="">TailWind</span>
           <span className="text-base-content uppercase">Trading</span>
         </Link>
       </div>

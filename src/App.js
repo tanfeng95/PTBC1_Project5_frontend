@@ -18,6 +18,7 @@ import UserOrder from './components/comsumer/userOrder';
 
 import ShopProducts from './components/merchant/ShopProducts';
 import MerchantDashboard from './components/merchant/MerchantDashboard';
+import ProductList from './components/merchant/ProductList';
 import AddProduct from './components/merchant/AddProduct';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/orders" element={<UserOrder cookies={cookies} />} />
 
         <Route path="/merchant/dashboard/:id" element={<MerchantDashboard />} />
+        <Route path="/merchant/product/:id" element={<ProductList />} />
         <Route path="/merchant/:id" element={<ShopProducts />} />
         <Route path="/merchant/product/add" element={<AddProduct />} />
       </Routes>

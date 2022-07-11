@@ -4,7 +4,8 @@ import { Link, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Navbar from './navbar';
 import CreditCards from './cards';
-import { BACKEND_URL } from '../../global';
+import { BACKEND_URL ,serviceId, templateId,userId } from '../../global';
+import * as emailjs from 'emailjs-com';
 
 export default function Checkout({ checkState, quanitylist }) {
   // console.log(checkState);
@@ -18,6 +19,7 @@ export default function Checkout({ checkState, quanitylist }) {
    * get item from local storage and item selected go into item list
    */
   useEffect(() => {
+
     const values = [];
     const keys = Object.keys(localStorage);
     // console.log(keys);
@@ -28,7 +30,7 @@ export default function Checkout({ checkState, quanitylist }) {
         values.push(item);
       }
     }
-    console.log(values)
+    // console.log(values)
     setCheckoutList(values); 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
@@ -82,7 +84,20 @@ export default function Checkout({ checkState, quanitylist }) {
           checkoutList.forEach((item, index) => {
             console.log(item);
             localStorage.removeItem(`product id${item.id}`);
+
+          const templateParams = {
+            from_name: 'TailWind Trading',
+            to_name: 'tanfeng95@hotmail.com',
+            message: `You bought ${item.name} quanity : ${item.quanity}`
+          };
+          emailjs.send(serviceId, templateId, templateParams, userId)
+          .then((resp) => {
+            console.log('FIRE EMAIL SUCCESS!', resp.status, resp.text);
+          }, (err) => {
+            console.log('FIRE EMAIL FAILED...', err);
           });
+          });
+
         }
       }).catch((err) => {
         console.log(err);

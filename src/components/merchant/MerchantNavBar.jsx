@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 export default function MerchantNavBar() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
   /**
  * handle logout
@@ -16,7 +16,7 @@ export default function MerchantNavBar() {
     removeCookie('userId', { path: '/' });
     removeCookie('sessionId', { path: '/' });
   };
- return (
+  return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <Link to={`/merchant/dashboard/${cookies.userId}`} className="font-title text-primary inline-flex text-lg transition-all duration-200 md:text-3xl ">
@@ -33,6 +33,11 @@ export default function MerchantNavBar() {
             <li>
               <Link to={`/merchant/dashboard/${cookies.userId}`}>
                 Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to={`/merchant/product/${cookies.userId}`}>
+                Product List
               </Link>
             </li>
             <li>
@@ -70,8 +75,8 @@ export default function MerchantNavBar() {
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => {
-                      setShowModal(false)
-                      navigate('/')
+                      setShowModal(false);
+                      navigate('/');
                     }}
                   >
                     Close
@@ -85,5 +90,4 @@ export default function MerchantNavBar() {
       ) : null}
     </div>
   );
-
 }

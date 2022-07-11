@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Navbar from './navbar';
+import CreditCards from './cards';
 import { BACKEND_URL } from '../../global';
 
 export default function Checkout({ checkState, quanitylist }) {
@@ -96,9 +97,11 @@ export default function Checkout({ checkState, quanitylist }) {
         <h4>Item Selected</h4>
         {itemList}
       </div>
-      <div className="flex items-end flex-col
-      cart-order-summary-div"
-      >
+      <div>      
+        <div className='credit-card-div'>
+          <CreditCards></CreditCards>
+        </div>
+      <div className="flex items-end flex-col cart-order-summary-div">
         <h6>
           Order Summary
         </h6>
@@ -107,7 +110,9 @@ export default function Checkout({ checkState, quanitylist }) {
           {' '}
           {sum}
         </div>
-        <button className="btn btn-primary" type="button" onClick={handlePlaceOrder}>place Order Now</button>
+        <button className="btn btn-primary" type="button" onClick={handlePlaceOrder}>Pay And Place Order</button>
+      </div>
+
       </div>
 
       {showModal ? (

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import * as emailjs from 'emailjs-com';
 import Navbar from './navbar';
 import CreditCards from './cards';
-import { BACKEND_URL ,serviceId, templateId,userId } from '../../global';
-import * as emailjs from 'emailjs-com';
+import {
+  BACKEND_URL, serviceId, customerTemplateId, merchantTemplateId, userId,
+} from '../../global';
 
 export default function Checkout({ checkState, quanitylist }) {
   // console.log(checkState);
@@ -19,7 +21,6 @@ export default function Checkout({ checkState, quanitylist }) {
    * get item from local storage and item selected go into item list
    */
   useEffect(() => {
-
     const values = [];
     const keys = Object.keys(localStorage);
     // console.log(keys);
@@ -31,9 +32,9 @@ export default function Checkout({ checkState, quanitylist }) {
       }
     }
     // console.log(values)
-    setCheckoutList(values); 
+    setCheckoutList(values);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  }, []);
 
   /**
    *for each item in check out list
@@ -43,10 +44,10 @@ export default function Checkout({ checkState, quanitylist }) {
     const newTotal = totalPrice + (Number(items.price) * Number(items.quanity));
     // console.log(newTotal);
     sum += newTotal;
-    //setSum(sum + newTotal);
+    // setSum(sum + newTotal);
     return (
       <div className="flex justify-center items-center cart-item">
-        <figure><img className="image-cart" src={`/images/${items.image}`}  width={200} height={200} alt="Album" /></figure>
+        <figure><img className="image-cart" src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure>
         <h6 className="cart-item-title">
           {items.name}
         </h6>
@@ -71,9 +72,10 @@ export default function Checkout({ checkState, quanitylist }) {
   const handlePlaceOrder = () => {
     setShowModal(true);
     console.log(Cookies.get('userId'));
-    console.log(checkoutList)
+    console.log(checkoutList);
     //   axios.post(`${BACKEND_URL}/login`, input)
-    const input = { newOrder: checkoutList,userId: Cookies.get('userId') };
+
+    const input = { newOrder: checkoutList, userId: Cookies.get('userId') };
     axios.post(`${BACKEND_URL}/createOrder`, input)
       .then((result) => {
         console.log(result);
@@ -85,25 +87,42 @@ export default function Checkout({ checkState, quanitylist }) {
             console.log(item);
             localStorage.removeItem(`product id${item.id}`);
 
-          const templateParams = {
-            from_name: 'TailWind Trading',
-            to_name: 'tanfeng95@hotmail.com',
-            message: `You bought ${item.name} quanity : ${item.quanity}`
-          };
-          emailjs.send(serviceId, templateId, templateParams, userId)
-          .then((resp) => {
-            console.log('FIRE EMAIL SUCCESS!', resp.status, resp.text);
-          }, (err) => {
-            console.log('FIRE EMAIL FAILED...', err);
-          });
-          });
+            // send email to customer
+            const templateParams = {
+              from_name: 'TailWind Trading',
+              to_name: 'tanfeng95@hotmail.com',
+              message: `You bought ${item.name} quanity : ${item.quanity}`,
+            };
+            emailjs.send(serviceId, customerTemplateId, templateParams, userId)
+              .then((resp) => {
+                console.log('FIRE EMAIL SUCCESS!', resp.status, resp.text);
+              }, (err) => {
+                console.log('FIRE EMAIL FAILED...', err);
+              });
 
+            axios.get(`${BACKEND_URL}/user/${Cookies.get('userId')}`)
+              .then((result) => {
+                console.log(result);
+                const { data } = result;
+                // send email to merchant
+                const merchantTemplateParams = {
+                  from_name: 'TailWind Trading',
+                  to_name: 'tanfeng95@hotmail.com',
+                  message: `${data.email} bought ${item.name} quanity : ${item.quanity}`,
+                };
+                emailjs.send(serviceId, merchantTemplateId, merchantTemplateParams, userId)
+                  .then((resp) => {
+                    console.log('FIRE EMAIL SUCCESS!', resp.status, resp.text);
+                  }, (err) => {
+                    console.log('FIRE EMAIL FAILED...', err);
+                  });
+              });
+          });
         }
       }).catch((err) => {
         console.log(err);
       });
   };
-
 
   return (
     <div>
@@ -112,21 +131,21 @@ export default function Checkout({ checkState, quanitylist }) {
         <h4>Item Selected</h4>
         {itemList}
       </div>
-      <div>      
-        <div className='credit-card-div'>
-          <CreditCards></CreditCards>
+      <div>
+        <div className="credit-card-div">
+          <CreditCards />
         </div>
-      <div className="flex items-end flex-col cart-order-summary-div">
-        <h6>
-          Order Summary
-        </h6>
-        <div>
-          $
-          {' '}
-          {sum}
+        <div className="flex items-end flex-col cart-order-summary-div">
+          <h6>
+            Order Summary
+          </h6>
+          <div>
+            $
+            {' '}
+            {sum}
+          </div>
+          <button className="btn btn-primary" type="button" onClick={handlePlaceOrder}>Pay And Place Order</button>
         </div>
-        <button className="btn btn-primary" type="button" onClick={handlePlaceOrder}>Pay And Place Order</button>
-      </div>
 
       </div>
 

@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Navbar from './navbar';
 import CreditCards from './cards';
-import { BACKEND_URL ,serviceId, customerTemplateId,merchantTemplateId,userId } from '../../global';
+import { BACKEND_URL ,serviceId, templateId,userId } from '../../global';
 import * as emailjs from 'emailjs-com';
 
 export default function Checkout({ checkState, quanitylist }) {
@@ -73,8 +73,7 @@ export default function Checkout({ checkState, quanitylist }) {
     console.log(Cookies.get('userId'));
     console.log(checkoutList)
     //   axios.post(`${BACKEND_URL}/login`, input)
-
-    const input = { newOrder: checkoutList,userId: Cookies.get('userId') };   
+    const input = { newOrder: checkoutList,userId: Cookies.get('userId') };
     axios.post(`${BACKEND_URL}/createOrder`, input)
       .then((result) => {
         console.log(result);
@@ -86,41 +85,17 @@ export default function Checkout({ checkState, quanitylist }) {
             console.log(item);
             localStorage.removeItem(`product id${item.id}`);
 
-
-          //send email to customer 
           const templateParams = {
             from_name: 'TailWind Trading',
             to_name: 'tanfeng95@hotmail.com',
             message: `You bought ${item.name} quanity : ${item.quanity}`
           };
-          emailjs.send(serviceId, customerTemplateId, templateParams, userId)
+          emailjs.send(serviceId, templateId, templateParams, userId)
           .then((resp) => {
             console.log('FIRE EMAIL SUCCESS!', resp.status, resp.text);
           }, (err) => {
             console.log('FIRE EMAIL FAILED...', err);
           });
-
-          axios.get(`${BACKEND_URL}/user/${Cookies.get('userId')}`)
-          .then((result)=>{
-            console.log(result)
-            const {data} = result;
-             // send email to merchant 
-              const merchantTemplateParams = {
-                from_name: 'TailWind Trading',
-                to_name: 'tanfeng95@hotmail.com',
-                message: `${data.email} bought ${item.name} quanity : ${item.quanity}`
-              }
-              emailjs.send(serviceId, merchantTemplateId, merchantTemplateParams, userId)
-              .then((resp) => {
-                console.log('FIRE EMAIL SUCCESS!', resp.status, resp.text);
-              }, (err) => {
-                console.log('FIRE EMAIL FAILED...', err);
-              });
-
-          })
-
-
-
           });
 
         }

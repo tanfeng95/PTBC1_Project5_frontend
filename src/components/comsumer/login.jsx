@@ -4,12 +4,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import jsSHA from 'jssha';
 import Navbar from './navbar';
 import { BACKEND_URL,SALT } from '../../global';
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 
 export default function Login({ setCookie }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [user, loading, error] = useAuthState(auth);
+  const [LoginError, setLoginError] = useState('');
 
   const getHash = (input) => {
   // create new SHA object
@@ -33,7 +37,7 @@ export default function Login({ setCookie }) {
         const { data } = result;
 
         if (data.noUser === true) {
-          setError(data.error);
+          setLoginError(data.error);
           return;
         }
         console.log(data[0].id);
@@ -45,7 +49,7 @@ export default function Login({ setCookie }) {
         const hashCookieString = loggedInCookie.getHash('HEX');
 
         setCookie('sessionId', hashCookieString, { path: '/' });
-        setError('');
+        setLoginError('');
         // setCookie('sessionId', data, { path: '/' });
         // setCookie('sessionId', uniqid(), { path: '/' });
         if (data[0].role === 'merchant') {
@@ -57,6 +61,12 @@ export default function Login({ setCookie }) {
         console.log(err);
       });
   };
+
+  const loginWithGoogle = async()  =>{
+   const login = await signInWithGoogle();
+    navigate('/')
+  }
+
 
   return (
     <div>
@@ -92,6 +102,24 @@ export default function Login({ setCookie }) {
                   Login
                 </button>
               </div>
+                       {/* <div className="mt-6">
+                <button
+                  type="button"
+                  className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+                  onClick={() => logInWithEmailAndPassword(email, password)}
+                >
+                  google login 
+                </button>
+              </div> */}
+                       <div className="mt-6">
+                <button
+                  type="button"
+                  className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+                  onClick={loginWithGoogle}
+                >
+                  login with google
+                </button>
+              </div>
             </div>
           </form>
           <p className="mt-8 text-xs font-light text-center text-gray-700">
@@ -107,10 +135,11 @@ export default function Login({ setCookie }) {
 
           </p>
           <div>
-            <h3 className="error-div">{error}</h3>
+            <h3 className="error-div">{LoginError}</h3>
           </div>
         </div>
       </div>
+
 
     </div>
 

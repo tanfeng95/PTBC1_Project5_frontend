@@ -116,13 +116,8 @@ export default function Checkout({ checkState, quanitylist }) {
               }, (err) => {
                 console.log('FIRE EMAIL FAILED...', err);
               });
-
           })
-
-
-
           });
-
         }
       }).catch((err) => {
         console.log(err);

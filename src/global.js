@@ -5,4 +5,13 @@
   const merchantTemplateId = 'template_qvxz7wp';
   const userId = 'CzBOQBK_6d8Vwx0iT'
 
- export {BACKEND_URL, SALT,serviceId,customerTemplateId,merchantTemplateId,userId};
+  const apiKey= "AIzaSyAzp_nUzUm7agAJ4dOmqJgHxMoFSrWpZEk";
+  const authDomain = "project5-d78f7.firebaseapp.com";
+  const projectId = "project5-d78f7";
+  const storageBucket = "project5-d78f7.appspot.com";
+  const messagingSenderId = "709906030797";
+  const appId = "1:709906030797:web:26664890e0364b33c54984";
+  const measurementId = "G-ZNQCRGY83F";
+
+ export {BACKEND_URL, SALT,serviceId,customerTemplateId,merchantTemplateId,userId
+        ,apiKey,authDomain,projectId,storageBucket,messagingSenderId,appId,measurementId};

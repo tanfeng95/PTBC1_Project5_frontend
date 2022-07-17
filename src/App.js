@@ -20,6 +20,7 @@ import ShopProducts from './components/merchant/ShopProducts';
 import MerchantDashboard from './components/merchant/MerchantDashboard';
 import ProductList from './components/merchant/ProductList';
 import AddProduct from './components/merchant/AddProduct';
+import EditProduct from './components/merchant/EditProduct';
 
 function App() {
   const [checkState, setCheckState] = useState([]);
@@ -30,7 +31,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Products />} />
-        <Route path="/product/:id" element={<Product/>} />
+        <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart checkState={checkState} setCheckState={setCheckState} quanitylist={quanitylist} setQuantityList={setQuantityList} />} />
         <Route path="/login" element={<Login setCookie={setCookie} />} />
         <Route path="/signup" element={<Signup />} />
@@ -41,6 +42,7 @@ function App() {
         <Route path="/merchant/product/:id" element={<ProductList />} />
         <Route path="/merchant/:id" element={<ShopProducts />} />
         <Route path="/merchant/product/add" element={<AddProduct />} />
+        <Route path="/merchant/product/edit/:merchantId/:productId" element={<EditProduct />} />
       </Routes>
     </div>
 

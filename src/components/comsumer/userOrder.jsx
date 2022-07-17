@@ -30,50 +30,86 @@ export default function UserOrder() {
   }, []);
 
 const newOrder = orderList.map((x) => {
-    // console.log(x);
     const date = new Date();
     return (
       <div className="order-div">
         <div>
-          <p>
+          <p className='badge badge-primary text-lg'>
             Order Id =
             {' '}
             {x.id}
           </p>
-          <p>
+          <p className='badge badge-info text-lg'>
             Purchase Date =
             {' '}
             {new Date(x.created_at).toLocaleDateString()}
           </p>
           
+          <div class="overflow-x-auto w-full">
+  <table class="table w-full">
 
-          <div className="flex justify-center items-center ">
-            <p className="d-flex flex-column quanity-style">
-              <p>
-                Product Name
-              </p>
-              <p className='product-name'>
-                {x.product.name}
-              </p>
-            </p>
-            <div className="image-cart">
-              <figure><img src={`/images/${x.product.image}`} width={200} height={200}  alt="Album" /></figure>
-            </div>
-            {/* <p className="cart-item-title">{x.product.title}</p> */}
-            <p className="order-item">
-              $
-              {x.product.price}
-            </p>
-            <div className="d-flex flex-column quanity-style">
-              <p>
-                Quanity
-              </p>
-              <p>
-                {x.quantity}
-              </p>
-            </div>
+    <thead>
+      <tr>
+        <th>
+        </th>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
 
+      <tr>
+        <th>
+        </th>
+        <td>
+          <div class="flex items-center space-x-3">
+            {/* <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div> */}
+            <div className='product-name'>
+              <div >{x.product.name}</div>
+    
+            </div>
           </div>
+        </td>
+        <td>
+            <div class="avatar">
+              <div class="mask mask-squircle w-18 h-20">
+                <img src={`/images/${x.product.image}`} width={200} height={200}  alt="Album" />
+              </div>
+            </div>
+            {/* <div className="image-cart">
+              <figure><img src={`/images/${x.product.image}`} width={200} height={200}  alt="Album" /></figure>
+            </div>  */}
+        </td>
+        <td>
+         {x.product.price}
+        </td>
+        <th >
+          {x.quantity}
+        </th>
+      </tr>
+    </tbody>
+
+    {/* <tfoot>
+      <tr>
+        <th></th>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+    </tfoot> */}
+    
+  </table>
+</div>
+
         </div>
       </div>
     );
@@ -82,7 +118,7 @@ const newOrder = orderList.map((x) => {
   return(
     <div>
       <Navbar />
-         <h4 className="order-div">My Orders</h4>
+         <h1 className='text-lg font-medium leading-7 text-slate-900'>My Orders</h1>
       {orderList.length > 0 && (
         <>
           {newOrder}

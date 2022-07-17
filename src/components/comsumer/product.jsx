@@ -9,10 +9,11 @@ import Navbar from './navbar';
 
 
 
-export default function Product(){
+export default function Product({cartItem,setCartItem}){
   const params = useParams();
   const [product , setProduct]= useState(null)
     const [value, setvalue] = useState(1);
+    const [refreshNavbar , setRefreshNavbar] = useState(false);
   const [name, setName] = useLocalStorage(`product id${product?.id}`, 'Bob');
   useEffect(() =>{
     axios.get(`${BACKEND_URL}/product/${params.id}`)
@@ -30,6 +31,8 @@ export default function Product(){
     //   navigate('/login');
     //   return;
     // }
+    setRefreshNavbar(true);
+
     product.quanity = value;
     setName(product);
     // setShowModal(true);
@@ -43,6 +46,8 @@ export default function Product(){
     //   navigate('/login');
     //   return;
     // }
+    setRefreshNavbar(true);
+     setRefreshNavbar(false);
     product.quanity = value;
     setName(product);
   };
@@ -53,7 +58,7 @@ export default function Product(){
      {product &&(
        <>
  <div className="book-content">
-         <Navbar/>
+         <Navbar refreshNavbar = {refreshNavbar}/>
             <div className="flex book-main m-6">
                 <Zoom
                 img={`/images/${product.image}`}

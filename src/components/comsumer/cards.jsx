@@ -122,10 +122,10 @@ export default  class PaymentForm extends React.Component {
                 />
               </div>
             </div>
-            <input type="hidden" name="issuer" value={issuer} />
-            {/* <div className="form-actions">
-              <button className="btn btn-primary btn-block">PAY</button>
-            </div> */}
+            {/* <input type="hidden" name="issuer" value={issuer} /> */}
+            <div className="form-actions">
+              <button className="btn btn-primary btn-block">Fill in credit card detail</button>
+            </div>
           </form>
           {formData && (
             <div className="App-highlight">

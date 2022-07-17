@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet ,useNavigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
 import * as emailjs from 'emailjs-com';
 import Navbar from './navbar';
@@ -15,6 +15,7 @@ export default function Checkout({ checkState, quanitylist }) {
   const [checkoutList, setCheckoutList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showModal, setShowModal] = React.useState(false);
+  const navigate = useNavigate();
   // const [sum, setSum] = useState(0);
 
   /**
@@ -47,7 +48,12 @@ export default function Checkout({ checkState, quanitylist }) {
     // setSum(sum + newTotal);
     return (
       <div className="flex justify-center items-center cart-item">
-        <figure><img className="image-cart" src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure>
+      <div class="avatar p-4">
+        <div class="w-18 h-20">
+          <figure><img src={`/images/${items.image}`}  alt="Album" /></figure>
+        </div>
+      </div>
+        {/* <figure><img className="image-cart" src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure> */}
         <h6 className="cart-item-title">
           {items.name}
         </h6>
@@ -122,13 +128,15 @@ export default function Checkout({ checkState, quanitylist }) {
       }).catch((err) => {
         console.log(err);
       });
+
+
   };
 
   return (
     <div>
       <Navbar />
-      <div className="checkout-div">
-        <h4>Item Selected</h4>
+      <div className="checkout-div ">
+        <h4 className='text-lg leading-7 font-medium underline underline-offset-1'>Item Selected</h4>
         {itemList}
       </div>
       <div>
@@ -136,10 +144,10 @@ export default function Checkout({ checkState, quanitylist }) {
           <CreditCards />
         </div>
         <div className="flex items-end flex-col cart-order-summary-div">
-          <h6>
+          <h6 className='text-lg leading-7 font-medium underline underline-offset-1'>
             Order Summary
           </h6>
-          <div>
+          <div className='text-lg leading-7 font-medium'>
             $
             {' '}
             {sum}
@@ -182,6 +190,13 @@ export default function Checkout({ checkState, quanitylist }) {
                     onClick={() => setShowModal(false)}
                   >
                     Close
+                  </button>
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => navigate('/orders')}
+                  >
+                    Go to My Order
                   </button>
                 </div>
               </div>

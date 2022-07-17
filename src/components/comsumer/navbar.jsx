@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
-export default function Navbar() {
+export default function Navbar({refreshNavbar}) {
+  //console.log(refreshNavbar)
   const [cartItem, setCartItem] = useState([]);
   const [showModal, setShowModal] = React.useState(false);
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
@@ -19,7 +20,7 @@ export default function Navbar() {
       // }
       setCartItem(values);
     }
-  }, []);
+  }, [refreshNavbar]);
   /**
  * handle logout
  */
@@ -30,7 +31,9 @@ export default function Navbar() {
   };
  return (
     <div className="navbar bg-base-100">
+
       <div className="flex-1">
+        {refreshNavbar}
         <Link to="/" className="font-title text-primary inline-flex text-lg transition-all duration-200 md:text-3xl ">
           <span className="">TailWind</span>
           <span className="text-base-content uppercase">Trading</span>

@@ -83,8 +83,8 @@ code {
 }
 
 .product-name {
-  max-width: 20vw
-
+  max-width: 20vw;
+  white-space: initial;
 
 }
 @tailwind base;

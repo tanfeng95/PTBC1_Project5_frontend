@@ -123,9 +123,14 @@ if (Cookies.get('sessionId') === undefined) {
   const cartList = itemlist.map((items, index) => (
     <div className="flex justify-center items-center cart-item">
       <input type="checkbox" className="checkbox" id={items.id} checked={checkState[index]} onChange={() => handleOnChange(index)} />
-      <div className="image-cart">
-        <figure><img src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure>
+      <div class="avatar p-4">
+        <div class="w-18 h-20">
+          <figure><img src={`/images/${items.image}`}  alt="Album" /></figure>
+        </div>
       </div>
+      {/* <div className="image-cart">
+        <figure><img src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure>
+      </div> */}
       <h6 className="cart-item-title">
         {items?.name}
       </h6>
@@ -155,6 +160,9 @@ if (Cookies.get('sessionId') === undefined) {
   return (
     <div>
       <Navbar />
+      <div className='text-lg leading-7 font-medium underline underline-offset-1'>
+        Cart List
+      </div>
       <div className="cart-item-list">
         {cartList.length > 0 && (
         <>
@@ -164,11 +172,10 @@ if (Cookies.get('sessionId') === undefined) {
       </div>
 
       <div className="d-flex align-items-end flex-column
-      cart-order-summary-div"
-      >
-        <h2>Order Summary</h2>
-        <div>
-          total amount =
+      cart-order-summary-div">
+        <h2 className='text-lg leading-7 font-medium underline underline-offset-1'>Order Summary</h2>
+        <div className='text-lg leading-7 font-medium'>
+          Total Amount =
           $
           {total}
         </div>

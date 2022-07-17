@@ -25,11 +25,12 @@ function App() {
   const [checkState, setCheckState] = useState([]);
   const [quanitylist, setQuantityList] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Products />} />
-        <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/:id" element={<Product/>} />
         <Route path="/cart" element={<Cart checkState={checkState} setCheckState={setCheckState} quanitylist={quanitylist} setQuantityList={setQuantityList} />} />
         <Route path="/login" element={<Login setCookie={setCookie} />} />
         <Route path="/signup" element={<Signup />} />

@@ -25,37 +25,61 @@ export default function ProductList() {
       </div>
       <div className="flex ml-3 justify-start">
         <Link to="/merchant/product/add">
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add a new product</button>
+          <button className="btn btn-primary">Add a new product</button>
         </Link>
       </div>
-      <div>
-        <ul className="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+
+      <table className="table w-full">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th />
+            <th />
+            <th />
+          </tr>
+        </thead>
+
+        <tbody>
           {shopProducts.map((p, index) => (
-            <li className="w-full flex justify-between items-center px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-              <img src={`/images/${p.image}`} alt={p.image} className="w-40 rounded-xl" />
-              {' '}
-              {p.name}
-              <Link to={`/merchant/product/edit/${params.id}/${p.id}`}>
-                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</button>
-              </Link>
-              <button
-                type="button"
-                className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                onClick={() => {
-                  axios
-                    .put(`${BACKEND_URL}/merchant/product/delete/${params.id}/${p.id}`)
-                    .then(
-                      alert('Product deleted.'),
-                      window.location.reload(),
-                    );
-                }}
-              >
-                Delete
-              </button>
-            </li>
+            <tr>
+              <td>
+                <div className="avatar">
+                  <div className="mask mask-squircle">
+                    <img src={`/images/${p.image}`} alt={p.image} />
+                  </div>
+                </div>
+              </td>
+              <td>
+                {p.name}
+              </td>
+              <td>
+                <Link to={`/merchant/product/edit/${params.id}/${p.id}`}>
+                  <button className="btn btn-info">Edit</button>
+                </Link>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  className="btn btn-warning"
+                  onClick={() => {
+                    axios
+                      .put(`${BACKEND_URL}/merchant/product/delete/${params.id}/${p.id}`)
+                      .then(
+                        alert('Product deleted.'),
+                        window.location.reload(),
+                      );
+                  }}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+
           ))}
-        </ul>
-      </div>
+
+        </tbody>
+      </table>
     </div>
   );
 }

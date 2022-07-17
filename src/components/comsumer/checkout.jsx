@@ -113,7 +113,7 @@ export default function Checkout({ checkState, quanitylist }) {
                 // send email to merchant
                 const merchantTemplateParams = {
                   from_name: 'TailWind Trading',
-                  to_name: 'tanfeng95@hotmail.com',
+                  to_name: 'joel.mak32@gmail.com',
                   message: `${data.email} bought ${item.name} quanity : ${item.quanity}`,
                 };
                 emailjs.send(serviceId, merchantTemplateId, merchantTemplateParams, userId)

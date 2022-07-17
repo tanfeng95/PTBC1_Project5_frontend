@@ -45,7 +45,7 @@ export default function ProductList() {
             <tr>
               <td>
                 <div className="avatar">
-                  <div className="mask mask-squircle">
+                  <div className="mask mask-squircle w-18 h-20">
                     <img src={`/images/${p.image}`} alt={p.image} />
                   </div>
                 </div>

@@ -10,15 +10,7 @@ export default function AddProduct() {
   const [cookies] = useCookies();
   const navigate = useNavigate();
   const inputForm = new FormData();
-  // const params = useParams();
-  // const [shopProducts, setShopProducts] = useState([]);
-  // useEffect(() => {
-  //   axios
-  //     .get(`${BACKEND_URL}/merchant/dashboard/${params.id}`)
-  //     .then((result) => {
-  //       setShopProducts(result.data);
-  //     });
-  // }, []);
+
   return (
     <div className="col-sm">
       <MerchantNavBar />
@@ -31,7 +23,6 @@ export default function AddProduct() {
           method="post"
           encType="multipart/form-data"
           onSubmit={(event) => {
-            console.log('this is the file', event.target.image.files);
             event.preventDefault();
 
             inputForm.append('name', event.target.name.value);
@@ -41,12 +32,13 @@ export default function AddProduct() {
             inputForm.append('description', event.target.description.value);
             inputForm.append('material', event.target.material.value);
             inputForm.append('merchant_id', cookies.userId);
+            inputForm.append('image', event.target.image.files[0].name);
             inputForm.append('image', event.target.image.files[0]);
             axios
               .post(`${BACKEND_URL}/merchant/product/add/${cookies.userId}`, inputForm)
               .then(() => {
                 alert(`${event.target.name.value} is created successfully`);
-                // navigate(`/merchant/dashboard/${cookies.userId}`);
+                navigate(`/merchant/product/${cookies.userId}`);
               });
           }}
         >

@@ -45,7 +45,7 @@ export default function MerchantDashboard() {
                     <div className="flex items-center space-x-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img src={`/images/${p.image}`} alt={p.image} />
+                          <img src={`${BACKEND_URL}/public/images/${p.image}`} alt={p.image} />
                         </div>
                       </div>
                       <div>

@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../../global';
 
 import Navbar from './navbar';
 
 export default function Cart({
   checkState, setCheckState, quanitylist, setQuantityList,
-}){
+}) {
   const [itemlist, setItemList] = useState([]);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
 
-if (Cookies.get('sessionId') === undefined) {
+  if (Cookies.get('sessionId') === undefined) {
     navigate('/login');
   }
 
@@ -32,8 +33,7 @@ if (Cookies.get('sessionId') === undefined) {
 
   const handleOnChange = (position) => {
     const updateCheckState = checkState.map((item, index) => {
-      if (index === position)
-      {
+      if (index === position) {
         return !item;
       }
       return item;
@@ -123,9 +123,9 @@ if (Cookies.get('sessionId') === undefined) {
   const cartList = itemlist.map((items, index) => (
     <div className="flex justify-center items-center cart-item">
       <input type="checkbox" className="checkbox" id={items.id} checked={checkState[index]} onChange={() => handleOnChange(index)} />
-      <div class="avatar p-4">
-        <div class="w-18 h-20">
-          <figure><img src={`/images/${items.image}`}  alt="Album" /></figure>
+      <div className="avatar p-4">
+        <div className="w-18 h-20">
+          <figure><img src={`${BACKEND_URL}/public/images/${items.image}`} alt="Album" /></figure>
         </div>
       </div>
       {/* <div className="image-cart">
@@ -160,7 +160,7 @@ if (Cookies.get('sessionId') === undefined) {
   return (
     <div>
       <Navbar />
-      <div className='text-lg leading-7 font-medium underline underline-offset-1'>
+      <div className="text-lg leading-7 font-medium underline underline-offset-1">
         Cart List
       </div>
       <div className="cart-item-list">
@@ -172,9 +172,10 @@ if (Cookies.get('sessionId') === undefined) {
       </div>
 
       <div className="d-flex align-items-end flex-column
-      cart-order-summary-div">
-        <h2 className='text-lg leading-7 font-medium underline underline-offset-1'>Order Summary</h2>
-        <div className='text-lg leading-7 font-medium'>
+      cart-order-summary-div"
+      >
+        <h2 className="text-lg leading-7 font-medium underline underline-offset-1">Order Summary</h2>
+        <div className="text-lg leading-7 font-medium">
           Total Amount =
           $
           {total}

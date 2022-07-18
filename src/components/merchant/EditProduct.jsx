@@ -10,6 +10,7 @@ export default function EditProduct() {
   const [cookies] = useCookies();
   const navigate = useNavigate();
   const params = useParams();
+  const inputForm = new FormData();
   const [shopProducts, setShopProducts] = useState([]);
 
   const handleChange = (event) => {
@@ -35,27 +36,28 @@ export default function EditProduct() {
       </div>
 
       <div className="ml-4 p-8">
-        <form onSubmit={(event) => {
-          event.preventDefault();
-          const input = {
-            name: event.target.name.value,
-            price: event.target.price.value,
-            // image: event.target.image.value,
-            // image: 'test.jpg',
-            department: event.target.department.value,
-            adjective: event.target.adjective.value,
-            description: event.target.description.value,
-            material: event.target.material.value,
-            merchant_id: cookies.userId,
+        <form
+          method="put"
+          encType="multipart/form-data"
+          onSubmit={(event) => {
+            event.preventDefault();
+            inputForm.append('name', shopProducts.name);
+            inputForm.append('price', shopProducts.price);
+            inputForm.append('department', shopProducts.department);
+            inputForm.append('adjective', shopProducts.adjective);
+            inputForm.append('description', shopProducts.description);
+            inputForm.append('material', shopProducts.material);
+            inputForm.append('merchant_id', cookies.userId);
+            inputForm.append('image', shopProducts.image);
+            inputForm.append('image', event.target.image.files[0]);
 
-          };
-          axios
-            .put(`${BACKEND_URL}/merchant/product/edit/${params.merchantId}/${params.productId}`, input)
-            .then(() => {
-              alert(`${input.name} is updated successfully`);
-              navigate(`/merchant/product/${cookies.userId}`);
-            });
-        }}
+            axios
+              .put(`${BACKEND_URL}/merchant/product/edit/${params.merchantId}/${params.productId}`, inputForm)
+              .then(() => {
+                alert(`${event.target.name.value} is updated successfully`);
+                navigate(`/merchant/product/${cookies.userId}`);
+              });
+          }}
         >
           <div className="relative z-0 w-full mb-6 group">
             <label htmlFor="name" className="flex peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Product Name</label>
@@ -94,7 +96,7 @@ export default function EditProduct() {
                 <img src={`/images/${shopProducts.image}`} alt={shopProducts.image} />
               </div>
             </div>
-            <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" name="image" type="file" />
+            <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" name="image" type="file" onChange={(event) => handleChange(event)} />
           </div>
 
           <button

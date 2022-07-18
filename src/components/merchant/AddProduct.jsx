@@ -9,15 +9,8 @@ import MerchantNavBar from './MerchantNavBar';
 export default function AddProduct() {
   const [cookies] = useCookies();
   const navigate = useNavigate();
-  // const params = useParams();
-  // const [shopProducts, setShopProducts] = useState([]);
-  // useEffect(() => {
-  //   axios
-  //     .get(`${BACKEND_URL}/merchant/dashboard/${params.id}`)
-  //     .then((result) => {
-  //       setShopProducts(result.data);
-  //     });
-  // }, []);
+  const inputForm = new FormData();
+
   return (
     <div className="col-sm">
       <MerchantNavBar />
@@ -26,27 +19,28 @@ export default function AddProduct() {
       </div>
 
       <div className="ml-4 p-8">
-        <form onSubmit={(event) => {
-          event.preventDefault();
-          const input = {
-            name: event.target.name.value,
-            price: event.target.price.value,
-            // image: event.target.image.value,
-            image: 'test.jpg',
-            department: event.target.department.value,
-            adjective: event.target.adjective.value,
-            description: event.target.description.value,
-            material: event.target.material.value,
-            merchant_id: cookies.userId,
+        <form
+          method="post"
+          encType="multipart/form-data"
+          onSubmit={(event) => {
+            event.preventDefault();
 
-          };
-          axios
-            .post(`${BACKEND_URL}/merchant/product/add/${cookies.userId}`, input)
-            .then(() => {
-              alert(`${input.name} is created successfully`);
-              navigate(`/merchant/dashboard/${cookies.userId}`);
-            });
-        }}
+            inputForm.append('name', event.target.name.value);
+            inputForm.append('price', event.target.price.value);
+            inputForm.append('department', event.target.department.value);
+            inputForm.append('adjective', event.target.adjective.value);
+            inputForm.append('description', event.target.description.value);
+            inputForm.append('material', event.target.material.value);
+            inputForm.append('merchant_id', cookies.userId);
+            inputForm.append('image', event.target.image.files[0].name);
+            inputForm.append('image', event.target.image.files[0]);
+            axios
+              .post(`${BACKEND_URL}/merchant/product/add/${cookies.userId}`, inputForm)
+              .then(() => {
+                alert(`${event.target.name.value} is created successfully`);
+                navigate(`/merchant/product/${cookies.userId}`);
+              });
+          }}
         >
           <div className="relative z-0 w-full mb-6 group">
             <input type="text" name="name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, Outlet ,useNavigate} from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import * as emailjs from 'emailjs-com';
 import Navbar from './navbar';
@@ -48,11 +48,11 @@ export default function Checkout({ checkState, quanitylist }) {
     // setSum(sum + newTotal);
     return (
       <div className="flex justify-center items-center cart-item">
-      <div class="avatar p-4">
-        <div class="w-18 h-20">
-          <figure><img src={`/images/${items.image}`}  alt="Album" /></figure>
+        <div className="avatar p-4">
+          <div className="w-18 h-20">
+            <figure><img src={`${BACKEND_URL}/public/images/${items.image}`} alt="Album" /></figure>
+          </div>
         </div>
-      </div>
         {/* <figure><img className="image-cart" src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure> */}
         <h6 className="cart-item-title">
           {items.name}
@@ -128,15 +128,13 @@ export default function Checkout({ checkState, quanitylist }) {
       }).catch((err) => {
         console.log(err);
       });
-
-
   };
 
   return (
     <div>
       <Navbar />
       <div className="checkout-div ">
-        <h4 className='text-lg leading-7 font-medium underline underline-offset-1'>Item Selected</h4>
+        <h4 className="text-lg leading-7 font-medium underline underline-offset-1">Item Selected</h4>
         {itemList}
       </div>
       <div>
@@ -144,10 +142,10 @@ export default function Checkout({ checkState, quanitylist }) {
           <CreditCards />
         </div>
         <div className="flex items-end flex-col cart-order-summary-div">
-          <h6 className='text-lg leading-7 font-medium underline underline-offset-1'>
+          <h6 className="text-lg leading-7 font-medium underline underline-offset-1">
             Order Summary
           </h6>
-          <div className='text-lg leading-7 font-medium'>
+          <div className="text-lg leading-7 font-medium">
             $
             {' '}
             {sum}

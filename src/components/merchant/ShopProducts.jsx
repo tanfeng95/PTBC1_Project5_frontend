@@ -25,7 +25,7 @@ export default function ShopProducts() {
         {shopProducts.map((p, index) => (
           <div className="card w-64 bg-base-120 shadow-xl bg-slate-50">
             <figure className="px-20 pt-10">
-              <img src={`/images/${p.image}`} alt={p.image} className="rounded-xl" />
+              <img src={`${BACKEND_URL}/public/images/${p.image}`} alt={p.image} className="rounded-xl" />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">{p.name}</h2>

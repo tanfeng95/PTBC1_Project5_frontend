@@ -65,8 +65,7 @@ export default function Product({ cartItem, setCartItem }) {
           />
           <div className="card-body">
             <h2 className="card-title">{product.name}</h2>
-
-            <p>
+            <p className="card-title">
               $
               {product.price}
             </p>

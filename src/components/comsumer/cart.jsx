@@ -121,40 +121,43 @@ export default function Cart({
    */
   // show items in cart and total value
   const cartList = itemlist.map((items, index) => (
-    <div className="flex justify-center items-center cart-item">
-      <input type="checkbox" className="checkbox" id={items.id} checked={checkState[index]} onChange={() => handleOnChange(index)} />
-      <div className="avatar p-4">
-        <div className="w-18 h-20">
-          <figure><img src={`${BACKEND_URL}/public/images/${items.image}`} alt="Album" /></figure>
-        </div>
+    <div className='p-10'>
+      <div className='flex justify-center items-center cart-item bg-emerald-300 rounded-box'>
+          <input type="checkbox" className="checkbox border-4" id={items.id} checked={checkState[index]} onChange={() => handleOnChange(index)} />
+                <div className="avatar p-4">
+          <div className="w-18 h-20">
+              <figure><img src={`${BACKEND_URL}/public/images/${items.image}`} alt="Album" /></figure>
+            </div>
+          </div>
+          {/* <div className="image-cart">
+            <figure><img src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure>
+          </div> */}
+          <h6 className="cart-item-title">
+            {items?.name}
+          </h6>
+          <div>
+            <p>
+              {' '}
+              $
+              {items.price}
+            </p>
+            <button className="btn btn-square" type="button" onClick={() => handleDeleteItem(index)}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+          </div>
+          <select className="select select-bordered m-5" onChange={(event) => handleSelectValue(index, event.target.value)}>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+          </select>
       </div>
-      {/* <div className="image-cart">
-        <figure><img src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure>
-      </div> */}
-      <h6 className="cart-item-title">
-        {items?.name}
-      </h6>
-      <div>
-        <p>
-          {' '}
-          $
-          {items.price}
-        </p>
-        <button className="btn btn-square" type="button" onClick={() => handleDeleteItem(index)}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-        </button>
-      </div>
-      <select className="select select-bordered m-5" onChange={(event) => handleSelectValue(index, event.target.value)}>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-      </select>
+     
     </div>
   ));
   return (

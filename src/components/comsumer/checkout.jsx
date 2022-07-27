@@ -47,29 +47,32 @@ export default function Checkout({ checkState, quanitylist }) {
     sum += newTotal;
     // setSum(sum + newTotal);
     return (
-      <div className="flex justify-center items-center cart-item">
-        <div className="avatar p-4">
-          <div className="w-18 h-20">
-            <figure><img src={`${BACKEND_URL}/public/images/${items.image}`} alt="Album" /></figure>
-          </div>
-        </div>
-        {/* <figure><img className="image-cart" src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure> */}
-        <h6 className="cart-item-title">
-          {items.name}
-        </h6>
-        <p>
-          {' '}
-          $
-          {items.price}
-        </p>
-        <p className="m-5">
-          Amount
-          <p className="flex justify-center">
-            {items.quanity}
-          </p>
+      <div className='p-5'>
+        <div className="flex justify-center items-center cart-item  bg-emerald-300 rounded-box">
+                <div className="avatar p-4">
+                  <div className="w-18 h-20">
+                    <figure><img src={`${BACKEND_URL}/public/images/${items.image}`} alt="Album" /></figure>
+                  </div>
+                </div>
+                {/* <figure><img className="image-cart" src={`/images/${items.image}`} width={200} height={200} alt="Album" /></figure> */}
+                <h6 className="cart-item-title">
+                  {items.name}
+                </h6>
+                <p>
+                  {' '}
+                  $
+                  {items.price}
+                </p>
+                <p className="m-5">
+                  Amount
+                  <p className="flex justify-center">
+                    {items.quanity}
+                  </p>
 
-        </p>
+                </p>
+              </div>
       </div>
+     
     );
   });
   /**
@@ -138,10 +141,10 @@ export default function Checkout({ checkState, quanitylist }) {
         {itemList}
       </div>
       <div>
-        <div className="credit-card-div">
+        <div className="credit-card-div pr-14 ">
           <CreditCards />
         </div>
-        <div className="flex items-end flex-col cart-order-summary-div">
+        <div className="flex items-end flex-col cart-order-summary-div pr-14">
           <h6 className="text-lg leading-7 font-medium underline underline-offset-1">
             Order Summary
           </h6>

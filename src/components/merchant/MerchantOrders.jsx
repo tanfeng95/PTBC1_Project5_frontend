@@ -4,10 +4,13 @@ import { useCookies } from 'react-cookie';
 import {
   useParams, Link, Outlet, useNavigate,
 } from 'react-router-dom';
+import * as emailjs from 'emailjs-com';
 import {
   Chart as ChartJS, ArcElement, Tooltip, Legend,
 } from 'chart.js';
-import { BACKEND_URL } from '../../global';
+import {
+  BACKEND_URL, serviceId, customerTemplateId, userId,
+} from '../../global';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -71,7 +74,23 @@ export default function MerchantDashboard() {
                   <td>{o.created_at}</td>
                   <th>
                     <label>
-                      <input type="checkbox" className="toggle toggle-primary" />
+                      <input
+                        type="checkbox"
+                        className="toggle toggle-primary"
+                        onClick={() => {
+                          const templateParams = {
+                            from_name: 'TailWind Trading',
+                            to_name: 'joel.mak32@gmail.com',
+                            message: `Your order for ${o.quantity} of ${p.name} have been shipped by the seller.`,
+                          };
+                          emailjs.send(serviceId, customerTemplateId, templateParams, userId)
+                            .then((resp) => {
+                              console.log('FIRE EMAIL SUCCESS!', resp.status, resp.text);
+                            }, (err) => {
+                              console.log('FIRE EMAIL FAILED...', err);
+                            });
+                        }}
+                      />
                     </label>
                   </th>
                 </tr>
